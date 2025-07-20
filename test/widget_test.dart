@@ -1,30 +1,42 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility in the flutter_test package. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
-
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:solid_software_test_project/app/core/app.dart';
-
+import 'package:solid_software_test_project/app/presentation/feature/bloc/color_change_cubit.dart';
+import 'package:solid_software_test_project/app/presentation/feature/color_change_page.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(const App());
+  testWidgets(
+    'New background color is different from the old one and '
+        'text is white on black background',
+    (WidgetTester tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          home: BlocProvider<ColorChangeCubit>(
+            create: (_) => ColorChangeCubit(),
+            child: const ColorChangePage(),
+          ),
+        ),
+      );
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+      final coloredBoxBefore = tester.widget<ColoredBox>(
+        find.byType(ColoredBox),
+      );
+      final initialColor = coloredBoxBefore.color;
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
+      await tester.tap(find.byType(GestureDetector));
+      await tester.pumpAndSettle();
 
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
-  });
+      final coloredBoxAfter = tester.widget<ColoredBox>(
+        find.byType(ColoredBox),
+      );
+      final newColor = coloredBoxAfter.color;
+
+      expect(newColor, isNot(equals(initialColor)));
+
+      if (newColor == Colors.black) {
+        final textWidget = tester.widget<Text>(find.text('Hey there'));
+        expect(textWidget.style?.color, equals(Colors.white));
+      }
+    },
+  );
 }
