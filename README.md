@@ -2,14 +2,6 @@
 
 ## Build and run preconditions(my local setup):
 
-### Generate signed APK
-
-fvm flutter build apk --flavor production -t lib/main.dart --release
-
-### Generate signed APP BUNDLE
-
-fvm flutter build appbundle --flavor production -t lib/main.dart --release
-
 ### Environment:
 Xcode Version 16.4 - 16F6   
 Android Studio Narwhal | 2025.1.1 Patch 1  
