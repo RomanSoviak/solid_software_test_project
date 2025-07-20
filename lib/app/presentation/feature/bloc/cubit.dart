@@ -22,7 +22,12 @@ class ColorChangeCubit extends Cubit<ColorChangeState> {
 
       emit(ColorChangeState(backgroundColor: randomColor));
     } catch (ex) {
-      emit(ColorChangeState(backgroundColor: state.backgroundColor, hasError: true));
+      emit(
+        ColorChangeState(
+          backgroundColor: state.backgroundColor,
+          hasError: true,
+        ),
+      );
     }
   }
 }
