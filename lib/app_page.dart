@@ -19,6 +19,18 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    return Container(color: Colors.red);
+    return Material(
+      child: GestureDetector(
+        onTap: () {
+          print("ffff");
+        },
+        child: Stack(
+          children: [
+            Container(color: Colors.red),
+            Center(child: Text("Hey there")),
+          ],
+        ),
+      ),
+    );
   }
 }
