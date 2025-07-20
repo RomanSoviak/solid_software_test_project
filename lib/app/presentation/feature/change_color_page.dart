@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'bloc/cubit.dart';
+import 'package:solid_software_test_project/app/presentation/feature/bloc/cubit.dart';
 
 class ColorChangePage extends StatefulWidget {
   const ColorChangePage({super.key});
@@ -29,11 +29,11 @@ class _ColorChangePageState extends State<ColorChangePage> {
             child: Stack(
               children: [
                 Container(color: state.backgroundColor),
-                Center(
+                const Center(
                   child: Text(
                     "Hey there",
                     textAlign: TextAlign.center,
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: Colors.black,
                       fontSize: 24,
                       fontWeight: FontWeight.bold,

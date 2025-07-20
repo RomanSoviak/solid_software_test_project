@@ -10,7 +10,7 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: BlocProvider(
-        create: (context) => ColorChangeCubit(),
+        create: (_) => ColorChangeCubit(),
         child: const ColorChangePage(),
       ),
     );
