@@ -4,11 +4,8 @@ import 'package:solid_software_test_project/app/presentation/feature/bloc/color_
 
 const _pageMainText = 'Hey there';
 const _defaultErrorText = 'Something went wrong!';
-const _pageMainTextStyle = TextStyle(
-  color: Colors.black,
-  fontSize: 24,
-  fontWeight: FontWeight.bold,
-);
+const _mainTextFontSize = 24.0;
+const _mainTextColor = Colors.black;
 
 const _errorBackgroundColor = Colors.red;
 const _errorShowingDuration = Duration(seconds: 3);
@@ -36,6 +33,10 @@ class _ColorChangePageState extends State<ColorChangePage> {
           _showErrorSnackBar();
         },
         builder: (context, state) {
+          final textColor = state.backgroundColor == Colors.black
+              ? Colors.white
+              : _mainTextColor;
+
           return Material(
             child: GestureDetector(
               onTap: () async {
@@ -43,11 +44,15 @@ class _ColorChangePageState extends State<ColorChangePage> {
               },
               child: ColoredBox(
                 color: state.backgroundColor,
-                child: const Center(
+                child: Center(
                   child: Text(
                     _pageMainText,
                     textAlign: TextAlign.center,
-                    style: _pageMainTextStyle,
+                    style: TextStyle(
+                      color: textColor,
+                      fontSize: _mainTextFontSize,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
               ),
