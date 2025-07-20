@@ -2,12 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:solid_software_test_project/app/presentation/feature/bloc/cubit.dart';
 
-const _pageMainText = "Hey there";
+const _pageMainText = 'Hey there';
+const _defaultErrorText = 'Something went wrong';
 const _pageMainTextStyle = TextStyle(
   color: Colors.black,
   fontSize: 24,
   fontWeight: FontWeight.bold,
 );
+
+const _errorBackgroundColor = Colors.red;
+const _errorShowingDuration = Duration(seconds: 3);
 
 class ColorChangePage extends StatefulWidget {
   const ColorChangePage({super.key});
@@ -19,12 +23,16 @@ class ColorChangePage extends StatefulWidget {
 class _ColorChangePageState extends State<ColorChangePage> {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ColorChangeCubit, ColorChangeState>(
+    return BlocConsumer<ColorChangeCubit, ColorChangeState>(
+      listener: (_, state) {
+        if (!state.hasError) return;
+        _showErrorSnackBar();
+      },
       builder: (context, state) {
         return Material(
           child: GestureDetector(
-            onTap: () {
-              context.read<ColorChangeCubit>().changeColor();
+            onTap: () async {
+              await context.read<ColorChangeCubit>().changeColor();
             },
             child: ColoredBox(
               color: state.backgroundColor,
@@ -39,6 +47,16 @@ class _ColorChangePageState extends State<ColorChangePage> {
           ),
         );
       },
+    );
+  }
+
+  void _showErrorSnackBar() {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text(_defaultErrorText),
+        backgroundColor: _errorBackgroundColor,
+        duration: _errorShowingDuration,
+      ),
     );
   }
 }

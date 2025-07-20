@@ -12,12 +12,17 @@ class ColorChangeCubit extends Cubit<ColorChangeState> {
 
   ColorChangeCubit() : super(ColorChangeState(backgroundColor: _savedColor));
 
-  void changeColor() {
-    final randomColor = Color(
-      (Random().nextDouble() * _maxRgbColorValue).toInt(),
-    ).withValues(alpha: 1.0);
+  Future<void> changeColor() async {
+    try {
+      final randomColor = Color(
+        (Random().nextDouble() * _maxRgbColorValue).toInt(),
+      ).withValues(alpha: 1.0);
 
+      await ColorManager.instance.saveColor(randomColor);
 
-    emit(ColorChangeState(backgroundColor: randomColor));
+      emit(ColorChangeState(backgroundColor: randomColor));
+    } catch (ex) {
+      emit(ColorChangeState(backgroundColor: state.backgroundColor, hasError: true));
+    }
   }
 }
