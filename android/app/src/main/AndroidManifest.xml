@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <application
-        android:label="solid_software_test_project"
+        android:label="Solid Software Test Project"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
