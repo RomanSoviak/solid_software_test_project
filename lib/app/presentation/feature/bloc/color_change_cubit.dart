@@ -24,13 +24,17 @@ class ColorChangeCubit extends Cubit<ColorChangeState> {
   /// sets [ColorChangeState.hasError] to true if an error occurs.
   Future<void> changeColor() async {
     try {
-      final randomColor = Color(
-        (Random().nextDouble() * _maxRgbColorValue).toInt(),
-      ).withValues(alpha: 1.0);
+      final randomValue = (Random().nextDouble() * _maxRgbColorValue).toInt();
+      final newColor = Color(randomValue).withValues(alpha: 1.0);
 
-      await ColorManager.instance.saveColor(randomColor);
+      final ensuredUniqueRandomColor =
+          (newColor.toARGB32() == state.backgroundColor.toARGB32())
+          ? Color((randomValue + 1) % _maxRgbColorValue).withValues(alpha: 1.0)
+          : newColor;
 
-      emit(ColorChangeState(backgroundColor: randomColor));
+      await ColorManager.instance.saveColor(ensuredUniqueRandomColor);
+
+      emit(ColorChangeState(backgroundColor: ensuredUniqueRandomColor));
     } catch (ex) {
       emit(
         ColorChangeState(
