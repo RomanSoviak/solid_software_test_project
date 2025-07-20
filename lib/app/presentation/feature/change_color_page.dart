@@ -1,22 +1,13 @@
 import 'package:flutter/material.dart';
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class ChangeColorPage extends StatefulWidget {
+  const ChangeColorPage({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(home: MyHomePage());
-  }
+  State<ChangeColorPage> createState() => _MyHomePageState();
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key});
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
+class _MyHomePageState extends State<ChangeColorPage> {
   @override
   Widget build(BuildContext context) {
     return Material(

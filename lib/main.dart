@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:solid_software_test_project/app_page.dart';
+import 'package:solid_software_test_project/app/core/app.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const App());
 }
