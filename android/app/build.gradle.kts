@@ -8,7 +8,7 @@ plugins {
 android {
     namespace = "com.solidsoftware.testproject.solid_software_test_project"
     compileSdk = flutter.compileSdkVersion
-    ndkVersion = flutter.ndkVersion
+    ndkVersion = "27.0.12077973"
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
