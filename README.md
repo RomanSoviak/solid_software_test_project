@@ -1,4 +1,4 @@
-# solid_software_test_# story_a_day
+# Solid Software Test App
 
 ## Build and run preconditions(my local setup):
 
