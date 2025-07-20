@@ -1,27 +1,50 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'bloc/cubit.dart';
 
-class ChangeColorPage extends StatefulWidget {
-  const ChangeColorPage({super.key});
+class ColorChangePage extends StatefulWidget {
+  const ColorChangePage({super.key});
 
   @override
-  State<ChangeColorPage> createState() => _MyHomePageState();
+  State<ColorChangePage> createState() => _ColorChangePageState();
 }
 
-class _MyHomePageState extends State<ChangeColorPage> {
+class _ColorChangePageState extends State<ColorChangePage> {
+  @override
+  void initState() {
+    super.initState();
+
+    // context.read<ColorChangeCubit>().init();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Material(
-      child: GestureDetector(
-        onTap: () {
-          print("ffff");
-        },
-        child: Stack(
-          children: [
-            Container(color: Colors.red),
-            Center(child: Text("Hey there")),
-          ],
-        ),
-      ),
+    return BlocBuilder<ColorChangeCubit, ColorChangeState>(
+      builder: (context, state) {
+        return Material(
+          child: GestureDetector(
+            onTap: () {
+              context.read<ColorChangeCubit>().changeColor();
+            },
+            child: Stack(
+              children: [
+                Container(color: state.backgroundColor),
+                Center(
+                  child: Text(
+                    "Hey there",
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                      color: Colors.black,
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 }
