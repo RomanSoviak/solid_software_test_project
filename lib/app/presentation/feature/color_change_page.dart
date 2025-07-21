@@ -37,25 +37,23 @@ class _ColorChangePageState extends State<ColorChangePage> {
               ? Colors.white
               : _mainTextColor;
 
-          return Material(
-            child: GestureDetector(
-              onTap: () async {
-                await context.read<ColorChangeCubit>().changeColor();
-              },
-              child: ColoredBox(
-                color: state.backgroundColor,
-                child: Center(
-                  child: Text(
-                    _pageMainText,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: textColor,
-                      fontSize: _mainTextFontSize,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ),
+          final mainText = Text(
+            _pageMainText,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              color: textColor,
+              fontSize: _mainTextFontSize,
+              fontWeight: FontWeight.bold,
+            ),
+          );
+
+          return GestureDetector(
+            onTap: () async {
+              await context.read<ColorChangeCubit>().changeColor();
+            },
+            child: ColoredBox(
+              color: state.backgroundColor,
+              child: Center(child: mainText),
             ),
           );
         },
@@ -64,13 +62,15 @@ class _ColorChangePageState extends State<ColorChangePage> {
   }
 
   void _showErrorSnackBar() {
-    ScaffoldMessenger.of(context).hideCurrentSnackBar();
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Center(child: Text(_defaultErrorText)),
-        backgroundColor: _errorBackgroundColor,
-        duration: _errorShowingDuration,
-      ),
-    );
+    final scaffoldMessenger = ScaffoldMessenger.of(context);
+    scaffoldMessenger
+      ..hideCurrentSnackBar()
+      ..showSnackBar(
+        const SnackBar(
+          content: Center(child: Text(_defaultErrorText)),
+          backgroundColor: _errorBackgroundColor,
+          duration: _errorShowingDuration,
+        ),
+      );
   }
 }
