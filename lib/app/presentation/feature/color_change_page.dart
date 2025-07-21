@@ -33,9 +33,10 @@ class _ColorChangePageState extends State<ColorChangePage> {
           _showErrorSnackBar();
         },
         builder: (context, state) {
-          final textColor = state.backgroundColor == Colors.black
-              ? Colors.white
-              : _mainTextColor;
+          final textColor =
+              state.backgroundColor == Colors.black
+                  ? Colors.white
+                  : _mainTextColor;
 
           final mainText = Text(
             _pageMainText,

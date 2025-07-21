@@ -29,8 +29,10 @@ class ColorChangeCubit extends Cubit<ColorChangeState> {
 
       final ensuredUniqueRandomColor =
           (newColor.toARGB32() == state.backgroundColor.toARGB32())
-          ? Color((randomValue + 1) % _maxRgbColorValue).withValues(alpha: 1.0)
-          : newColor;
+              ? Color(
+                (randomValue + 1) % _maxRgbColorValue,
+              ).withValues(alpha: 1.0)
+              : newColor;
 
       await ColorManager.instance.saveColor(ensuredUniqueRandomColor);
 
